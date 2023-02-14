@@ -5,6 +5,7 @@ import {
   getVideo,
   likeVideo,
   random,
+  tags,
   trend,
   updateVideo,
   uploadVideo,
@@ -22,5 +23,6 @@ router.get("/random", random);
 router.get("/trending", trend);
 //router.get("/subscriptions", verifyToken, subscribe);
 router.put("/like-video/:id", verifyToken, likeVideo);
+router.get("/tags/", tags);
 
 export default router;
