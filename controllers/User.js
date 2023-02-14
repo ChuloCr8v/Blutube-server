@@ -42,12 +42,47 @@ export const getUser = async (req, res, next) => {
   res.status(200).json(user);
 };
 
-//Subscribed users
+//Subscribe
 
 export const subscribe = async (req, res, next) => {
+  if (req.user.id === req.params.id)
+    return res
+      .status(401)
+      .json("You are not allowed to subscribe to your own channel");
+
   try {
-    const subscribe = await User.findById()
+    const verifyUser = await User.findById(req.params.id);
+    const verified = verifyUser.subscribedUsers.filter(
+      (user) => user === req.user.id
+    );
+
+    if (verifyUser.subscribedUsers.includes(verified))
+      return res.status(501).json("User already subscribed");
+
+    await User.findByIdAndUpdate(req.params.id, {
+      $push: { subscribedUsers: req.user.id },
+    });
+    await User.findByIdAndUpdate(req.user.id, {
+      $push: { subscribedTo: req.params.id },
+    });
+    res.status(200).json("Subscription Successful!");
   } catch (error) {
-    
+    next(error);
   }
-}
+};
+
+//Unsubscribe
+
+export const unsubscribe = async (req, res, next) => {
+  try {
+    await findByIdAndUpdate(req.params.id, {
+      $pull: { subscribedUsers: req.user.id },
+    });
+    await findByIdAndUpdate(req.user.id, {
+      $pull: { subscribedTo: req.params.id },
+    });
+    res.status(200).json("Unsubscribed Successfully!");
+  } catch (error) {
+    next(error);
+  }
+};
