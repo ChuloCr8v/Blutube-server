@@ -86,3 +86,16 @@ export const unsubscribe = async (req, res, next) => {
     next(error);
   }
 };
+
+//Search user
+export const searchUser = async (req, res, next) => {
+  const search = req.query.search;
+  try {
+    const searchUser = await User.find({
+      username: { $regex: search, $options: "i" },
+    });
+    res.status(200).json(searchUser);
+  } catch (error) {
+    next(error);
+  }
+};

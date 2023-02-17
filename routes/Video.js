@@ -2,10 +2,11 @@ import express from "express";
 import {
   addView,
   deleteVideo,
+  getByTags,
   getVideo,
   likeVideo,
   random,
-  tags,
+  searchVideos,
   trend,
   updateVideo,
   uploadVideo,
@@ -23,6 +24,7 @@ router.get("/random", random);
 router.get("/trending", trend);
 //router.get("/subscriptions", verifyToken, subscribe);
 router.put("/like-video/:id", verifyToken, likeVideo);
-router.get("/tags/", tags);
+router.get("/tags/", getByTags);
+router.get("/search/", searchVideos);
 
 export default router;

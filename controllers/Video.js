@@ -84,11 +84,23 @@ export const trend = async (req, res, next) => {
   }
 };
 
-export const tags = async (req, res, next) => {
+export const getByTags = async (req, res, next) => {
   const tags = req.query.tag.split(",");
   try {
     const getVideos = await Video.find({ tags: { $in: tags } }).limit(20);
     res.status(200).json(getVideos);
+  } catch (error) {
+    next(error);
+  }
+};
+
+export const searchVideos = async (req, res, next) => {
+  const search = req.query.search;
+  try {
+    const searchVideos = await Video.find({
+      title: { $regex: search, $options: "i" },
+    }).limit(40);
+    res.status(200).json(searchVideos);
   } catch (error) {
     next(error);
   }

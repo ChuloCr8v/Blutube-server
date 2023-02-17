@@ -2,6 +2,7 @@ import express from "express";
 import {
   deleteUser,
   getUser,
+  searchUser,
   subscribe,
   unsubscribe,
   updateUser,
@@ -19,5 +20,7 @@ router.get("/find/:id", verifyToken, getUser);
 router.put("/subscribe/:id", verifyToken, subscribe);
 
 router.put("/unsubscribe/:id", verifyToken, unsubscribe);
+
+router.get("/search-user/", searchUser);
 
 export default router;

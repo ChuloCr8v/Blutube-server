@@ -29,7 +29,7 @@ import Video from "./routes/Video.js";
 import Comment from "./routes/Comment.js";
 
 //Use routes
-app.use("/api/", User);
+app.use("/api/user", User);
 app.use("/api/auth/", auth);
 app.use("/api/video/", Video);
 app.use("/api/comment/", Comment);
