@@ -4,6 +4,7 @@ import {
   deleteVideo,
   getByTags,
   getVideo,
+  getVideos,
   likeVideo,
   random,
   searchVideos,
@@ -18,7 +19,8 @@ const router = express.Router();
 router.post("/upload-video", verifyToken, uploadVideo);
 router.put("/update-video/:id", verifyToken, updateVideo);
 router.delete("/delete-video/:id", verifyToken, deleteVideo);
-router.get("/", getVideo);
+router.get("/:id", getVideos);
+router.get("/videos", getVideo);
 router.put("/add-view/:id", addView);
 router.get("/random", random);
 router.get("/trending", trend);

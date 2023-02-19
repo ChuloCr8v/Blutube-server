@@ -2,11 +2,13 @@ import express from "express";
 import mongoose from "mongoose";
 import dotenv from "dotenv";
 import cookieParser from "cookie-parser";
+import cors from "cors";
 
 const app = express();
 mongoose.set("strictQuery", false);
 
 //Middlewares
+app.use(cors());
 app.use(cookieParser());
 app.use(express.json());
 dotenv.config();
